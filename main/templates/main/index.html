@@ -1,0 +1,151 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row p-0 m-0" style='background-image: url("{% static 'analyst2.jpg' %}");background-size: 100%;
+background-repeat: no-repeat; height: 800px'>
+        <div class="col-3 text-center m-auto text-white">
+            <img style="width:50%;" src="{% static 'img_portfolio.jpg' %}" class="img-fluid rounded-circle" alt>
+            <h2>Rodrigue Eloi Manga</h2>
+            <h5>Data scientis junior</h5>
+        </div>
+    </div>
+
+    <section id="about" class="bg-light">
+        <div class="row" style="margin-left: 15%;">
+            <h2 class="text-secondary">A propos !</h2>
+            <div class="d-flex m-3">
+                    <span style="border-left: black 5px solid;"></span>
+                    <span style="width:10%; border-top: 3px solid black; margin-left: -2px; margin-top: 40px"></span>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="card bg-dark" style="box-shadow: 5px 5px 5px 5px black">
+                          <div class="card-body">
+                            <p class="card-text text-secondary" style="font-weight: bold; text-align: justify">
+                                Passionné par la Data Science, mon objectif est d’exploiter la puissance de l’intelligence artificielle pour concevoir des
+                                solutions innovantes. Grâce à une expertise en machine learning, deep learning et analyse de données, je développe des
+                                modèles IA capables d’optimiser les performances, d’améliorer la prise de décision et d’automatiser des processus complexes.
+                                J’effectue en ce moment une
+                                formation en Intelligence Artificielle à l’École Supérieure Des Technologies Industrielle Avancées.
+                                Cette formation m’a permis d’acquérir et de développer des connaissances en Machine learning et
+                                en Deep learning. Un stage m’ouvrira l’opportunité d’approfondir et d’accroitre mes compétences
+                                actuelles du domaine de la data science.
+                                Sérieux, organisé, méticuleux, méthodique sont des qualités personnelles que je possède et que vous
+                                conviendrez sont nécessaires à ce métier. De plus, mes bonnes relations humaines me permettent
+                                d’intégrer facilement une équipe.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="formations">
+        <div class="row" style="margin-left: 15%; margin-top: 50px">
+            <h2 class="text-secondary mb-0">Formations</h2>
+            <div class="row g-4 mt-0">
+                {% for education in educations %}
+                    <div class="col-sm-5">
+                        <div class="card bg-dark" style="box-shadow: 5px 5px 5px 5px black">
+                          <div class="card-body text-secondary">
+                              <h5 class="card-title mb-3">{{ education.periode }}</h5>
+                            <p class="card-text" style="font-weight: bold; text-align: justify;">
+                                <li style="margin-left: 20px">{{ education.specialite }}</li>
+                                <li style="margin-left: 20px">{{ education.ecole }}</li>
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="experiences" class="bg-light">
+        <div class="row" style="margin-left: 15%; margin-top: 50px">
+            <h2 class="text-secondary mb-0">Expériences professionnelles</h2>
+            <div class="row g-4 mt-0">
+                {% for exp in experiences %}
+                    <div class="col-sm-5">
+                        <div class="card bg-dark" style="box-shadow: 5px 5px 5px 5px black">
+                          <div class="card-body text-secondary">
+                              <h5 class="card-title mb-3">{{ exp.periode }}</h5>
+                            <p class="card-text" style="font-weight: bold; text-align: justify;">
+                                <li style="margin-left: 20px">{{ exp.poste }}</li>
+                                <li style="margin-left: 20px">{{ exp.company }}</li>
+                                <li style="margin-left: 20px">{{ exp.description }}</li>
+                                <li style="margin-left: 20px">Outils: {{ exp.outils }}</li>
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <section id="projects">
+        <div class="row" style="margin-left: 15%; margin-top: 50px">
+            <h2 class="text-secondary mb-0">Projets / Réalisations</h2>
+            <div class="row g-4 mt-0">
+                {% for projet in projects %}
+                    <div class="col-sm-5">
+                        <div class="card bg-dark" style="box-shadow: 5px 5px 5px 5px black">
+                          <div class="card-body text-secondary">
+                              <h5 class="card-title mb-3">{{ projet.title }}</h5>
+                            <p class="card-text" style="font-weight: bold; text-align: justify;">
+                                <li style="margin-left: 20px">{{ projet.description }}</li>
+                                <li style="margin-left: 20px">{{ projet.lieu }}</li>
+                                <li style="margin-left: 20px">Technologies: {{ projet.technologies }}</li>
+                            </p>
+                              {% if projet.id != 1 %}
+                                <a href="{% url 'details' idprojet=projet.id %}" class="btn btn-outline-success btn-sm">voir les détails !</a>
+                              {% endif %}
+                          </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="competences" class="bg-light">
+        <div class="row" style="margin-left: 15%; margin-top: 50px">
+            <h2 class="text-secondary mb-0">Compétences</h2>
+            <div class="row g-4 mt-0">
+
+                    <div class="col-sm-8">
+                        {% for skill in skills %}
+                        <label class="text-secondary"><strong style="font-size: 20px">{{ skill.name }}</strong></label>
+                        <div class="progress mb-4" style="background-color: #D0D3D4">
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
+                                 style="width: {{ skill.level }}%;"
+                                 aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ skill.level }}%
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background-color: azure">
+        <div class="row" style="margin-left: 15%;">
+            <h2 class="text-secondary mb-3">Contact</h2>
+            <div class="d-flex">
+              <div class="text-secondary" style="margin-right: 1%">
+                  <p><i class="fa fa-map-marker"></i> Ouakam cité avion, Dakar</p>
+                  <p><i class="fa fa-phone"></i> Téléphone: +221 77 544 87 98</p>
+                  <p><i class="fa fa-envelope"> </i> mail : eloimanga@gmail.com</p>
+                  <p><i class="fa fa-github"> </i><a href="https://github.com/elszo/" style="text-decoration: None"> https://github.com/elszo/</a></p>
+                  <p><i class="fa fa-linkedin"> </i><a href="https://www.linkedin.com/in/rodrigueeloimanga/" style="text-decoration: None"> https://www.linkedin.com/in/rodrigueeloimanga/</a></p>
+              </div>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3858.84349358343!2d-17.48291722398569!3d14.721438885779403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec16d55f444d723%3A0xef340e67bb379b57!2sCite%20avion%2C%20Dakar!5e0!3m2!1sfr!2ssn!4v1742335396398!5m2!1sfr!2ssn" width="500" height="200" style="border:0; border-radius: 3px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+{% endblock %}

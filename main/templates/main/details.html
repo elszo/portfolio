@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body class="d-flex" style="background-color: #E6EBEE;">
+
+    <div class="d-inline bg-dark col-sm-2 mainnav">
+      <img style="width:20%;" src="{% static 'img_portfolio.jpg' %}" class="img-fluid img-thumbnail rounded-circle m-3" alt>
+      <ul class="ulnav">
+            <li class="linav"><i class="fa fa-home text-white"></i>
+            <a href="{% url 'index' %}" class="a-nav">
+              Accueil
+            </a></li>
+          {% for projet in projets %}
+              <li class="linav {% if item.id == projet.id %}liactive{% endif %}">
+                 {% if projet.title == "Classification d'images" %}
+                    <i class="fa fa-images text-white"></i>
+                {% elif projet.title == "Classification de textes" %}
+                    <i class="fa fa-file-alt text-white"></i>
+                {% elif projet.title == "Prévision des séries temporelles" %}
+                    <i class="fa fa-calendar text-white"></i>
+                {% else %}
+                    <i class="fa fa-question text-white"></i>
+                {% endif %}
+            <a href="{% url 'details' idprojet=projet.id %}" class="a-nav nav-item nav-item">
+              {{ projet.title }}
+            </a></li>
+          {% endfor %}
+      </ul>
+    </div>
+
+    <div style="margin-left: 1%">
+        <h1>Projet de {{ details_project.projet.title }}</h1>
+        <div class="col-sm-8 divdetails">
+
+            <div class="p-3 detaildescription">
+                <p>{{ details_project.objectifs }}</p>
+                {% if imgbase != '' %} <img src="{% static details_project.dossier_images %}/{{ imgbase }}" alt="" class="col-sm-12"> {% endif %}
+            </div>
+
+            <div class="p-3 detaildescription">
+                <p>{{ details_project.donnees }}</p>
+                <p>{{ details_project.pretraitement }}</p>
+                <p>{{ details_project.experimentations }}</p>
+            </div>
+
+        </div>
+
+        <h3>Architecture et comparaison des résultats</h3>
+        <div class="col-sm-8 divdetails">
+            {% for image in images %}
+                <div class="p-3 detaildescription">
+                    <img src="{% static details_project.dossier_images %}/{{ image }}" alt="" class="col-sm-12">
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>
